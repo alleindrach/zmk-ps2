@@ -51,3 +51,58 @@ endchoice
 endif # LVGL
 
 endif
+
+
+menuconfig ZMK_RGB_INDICATORS
+    bool "RGB Adressable LED Indicators"
+    select LED_STRIP
+    select ZMK_LOW_PRIORITY_WORK_QUEUE
+
+if ZMK_RGB_INDICATORS
+
+# This default value cuts down on tons of excess .conf files, if you're using GPIO, manually disable this
+config SPI
+    default y
+
+config ZMK_RGB_INDICATORS_EXT_POWER
+    bool "RGB underglow toggling also controls external power"
+    default y
+
+config ZMK_RGB_INDICATORS_BRT
+    int "RGB underglow minimum brightness in percent"
+    default 10
+
+
+config ZMK_RGB_INDICATORS_HUE
+    int "RGB underglow start hue value in degrees"
+    default 100
+
+config ZMK_RGB_INDICATORS_SAT
+    int "RGB underglow start saturations value in percent"
+    default 100
+
+
+config ZMK_RGB_INDICATORS_EFF
+    int "RGB underglow start effect int value related to the effect enum list"
+    default 0
+
+config ZMK_RGB_INDICATORS_ON_START
+    bool "RGB status indicators starts on by default"
+    default y
+
+config ZMK_RGB_INDICATORS_AUTO_OFF_IDLE
+    bool "Turn off RGB underglow when keyboard goes into idle state"
+
+config ZMK_RGB_INDICATORS_AUTO_OFF_USB
+    bool "Turn off RGB underglow when USB is disconnected"
+    depends on USB_DEVICE_STACK
+
+config ZMK_RGB_INDICATORS_SPD
+    int "RGB underglow start animation speed value"
+    default 3
+
+#ZMK_RGB_INDICATORS
+endif
+menuconfig ZMK_HAS_TRACKPOINT
+    bool "Has Thinkpad TrackPoint"
+    default n

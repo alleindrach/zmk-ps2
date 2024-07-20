@@ -6,10 +6,14 @@
 
  #include <behaviors.dtsi>
  #include <dt-bindings/zmk/keys.h>
- #include <dt-bindings/zmk/bt.h>
+ #include <dt-bindings/zmk/bt.h> 
+ #include <dt-bindings/zmk/rgb.h>
+ #include <dt-bindings/zmk/indicator.h>
 #define BASE 0
 #define LOWER 1
 #define RAISE 2
+#define DEFAULT_LAYER 0
+#define NUM_LAYER 1
 
 #define MOUSE_KEYS 3
 #define MOUSE_TP 4
@@ -24,10 +28,10 @@
  * disable all the config options that rely on those forks and modules without having
  * to edit the entire keymap file manually every time.
  */
-
+#ifdef CONFIG_ZMK_HAS_TRACKPOINT
 #define HAS_MOUSE_KEYS
 #define HAS_MOUSE_TP
-
+#endif
 #ifdef HAS_MOUSE_KEYS
   #include <dt-bindings/zmk/mouse.h>
   #include <behaviors/mouse_keys.dtsi>
@@ -59,6 +63,421 @@
 
 
  / {
+       macros {
+              input_toggle: input_toggle {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      =  <&macro_press &kp LEFT_CONTROL>
+                      , <&macro_tap &kp SPACE>
+                      , <&macro_release &kp LEFT_CONTROL>
+                      ;
+                      
+              };
+               bt_1: bt_sel_1 {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &bt BT_SEL 0>
+                       ;
+               };
+               bt_2: bt_sel_2 {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &bt BT_SEL 1>
+                       ;
+               };
+               bt_3: bt_sel_3 {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &bt BT_SEL 2>
+                       ;
+               };
+               bt_loop: bt_loop {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &bt BT_NXT>
+                       ;
+               };
+               bt_clr: bt_clr {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &bt BT_CLR>
+                       ;
+               };
+               bt_clr_all: bt_clr_all {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &bt BT_CLR_ALL>
+                       ;
+               };
+               ug_toggle: ug_toggle {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &rgb_ug RGB_TOG>
+                       ;
+               };
+              //  indicator_toggle: indicator_toggle {
+              //      compatible = "zmk,behavior-macro";
+              //      #binding-cells = <0>;
+              //      bindings
+              //          = < &rgb_ind RGB_IND_TOGGLE>
+              //          ;
+              //  };
+               mo_num: mo_num {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &mo NUM_LAYER>
+                      ;
+              };
+               to_num: to_num {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &to NUM_LAYER>
+                       ;
+               };
+               to_default: to_default {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &to DEFAULT_LAYER>
+                       ;
+               };
+               key_D: key_D {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp D>
+                      ;
+              };
+              key_A: key_A {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp A>
+                      ;
+              };
+              key_S: key_S {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp S>
+                      ;
+              };
+              key_Z: key_Z{
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp Z>
+                      ;
+              };
+              key_X: key_X {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp X>
+                      ;
+              };
+              key_C: key_C {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp C>
+                      ;
+              };
+              key_V: key_V {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp V>
+                      ;
+              };
+              key_B: key_B {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp B>
+                      ;
+              };
+              key_N: key_N {
+                  compatible = "zmk,behavior-macro";
+                  #binding-cells = <0>;
+                  bindings
+                      = < &kp N>
+                      ;
+              };
+           };
+           behaviors {
+               ht: hold_tap {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <200>;
+                   flavor = "tap-preferred";
+                   bindings = <&kp>, <&kp>;
+               };
+               hht: hold_preferred_tap {
+                  compatible = "zmk,behavior-hold-tap";
+                  #binding-cells = <2>;
+                  tapping-term-ms = <2000>;
+                  flavor = "hold-preferred";
+                  bindings = <&kp>, <&kp>;
+              };
+               hht_num: hht_num {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <2000>;
+                   flavor = "hold-preferred";
+                   bindings = <&mo_num>, <&kp>;
+               };
+               hht_input: hht_shift_input {
+                  compatible = "zmk,behavior-hold-tap";
+                  #binding-cells = <2>;
+                  tapping-term-ms = <2000>;
+                  flavor = "hold-preferred";
+                  bindings = <&kp>, <&input_toggle>;
+              };
+               ht_default: ht_default {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <200>;
+                   flavor = "tap-preferred";
+                   bindings = <&to_default>, <&kp>;
+               };
+       
+               ht_bt1: hold_tap_macro_bt1 {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <2000>;
+                   flavor = "tap-preferred";
+                   bindings = <&bt_1>, <&key_Z>;
+               };
+               ht_bt2: hold_tap_macro_bt2 {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <2000>;
+                   flavor = "tap-preferred";
+                   bindings = <&bt_2>, <&key_X>;
+               };
+               ht_bt3: hold_tap_macro_bt3 {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <2000>;
+                   flavor = "tap-preferred";
+                   bindings = <&bt_3>, <&key_C>;
+               };
+               ht_bt_loop: hold_tap_macro_btloop {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <2000>;
+                   flavor = "tap-preferred";
+                   bindings = <&bt_loop>, <&kp>;
+               };
+               ht_bt_clr: hold_tap_macro_bt_clr {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <2000>;
+                   flavor = "tap-preferred";
+                   bindings = <&bt_clr>, <&key_V>;
+               };
+               ht_bt_clr_all: hold_tap_macro_bt_clr_all {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <2000>;
+                   flavor = "tap-preferred";
+                   bindings = <&bt_clr_all>, <&key_B>;
+               };
+               ht_ug_tog: hold_tap_macro_ug_tog {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <2000>;
+                   flavor = "tap-preferred";
+                   bindings = <&ug_toggle>, <&key_A>;
+               };
+              //  ht_ind_tog: hold_tap_macro_ind_tog {
+              //      compatible = "zmk,behavior-hold-tap";
+              //      #binding-cells = <2>;
+              //      tapping-term-ms = <200>;
+              //      flavor = "tap-preferred";
+              //      bindings = <&indicator_toggle>, <&key_S>;
+              //  };
+               ht_boot: ht_boot {
+                  compatible = "zmk,behavior-hold-tap";
+                  #binding-cells = <2>;
+                  tapping-term-ms = <3000>;
+                  flavor = "hold-preferred";
+                  bindings = <&bootloader>, <&key_D>;
+              };
+               semi_bracket: semi_bracket {
+                   compatible = "zmk,behavior-mod-morph";
+                   #binding-cells = <0>;
+                   bindings = <&kp SEMI>, <&kp LEFT_BRACKET>;
+                   mods = <(MOD_LCTL|MOD_LGUI)>;
+               };
+               quot_bracket: quot_bracket {
+                   compatible = "zmk,behavior-mod-morph";
+                   #binding-cells = <0>;
+                   bindings = <&kp SINGLE_QUOTE>, <&kp RIGHT_BRACKET>;
+                   mods = <(MOD_LCTL|MOD_LGUI)>;
+               };
+               td_spc_num: tap_dance_space_or_number_layer {
+                  compatible = "zmk,behavior-tap-dance";
+                  #binding-cells = <0>;
+                  tapping-term-ms = <200>;
+                  bindings = <&kp SPACE>, <&to NUM_LAYER>;
+              };
+              td_spc_dft: tap_dance_space_or_default_layer {
+                  compatible = "zmk,behavior-tap-dance";
+                  #binding-cells = <0>;
+                  tapping-term-ms = <200>;
+                  bindings = <&kp SPACE>, <&to DEFAULT_LAYER>;
+              };
+              td_rarr_end:td_rarr_end {
+                  compatible = "zmk,behavior-tap-dance";
+                  #binding-cells = <0>;
+                  tapping-term-ms = <150>;
+                  bindings = <&kp RIGHT_ARROW>, <&kp END>;
+              };
+              td_larr_home:td_larr_home {
+                  compatible = "zmk,behavior-tap-dance";
+                  #binding-cells = <0>;
+                  tapping-term-ms = <150>;
+                  bindings = <&kp LEFT_ARROW>, <&kp HOME>;
+              };
+              mod_rgui_Q_1: mod_rgui_Q_1 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp Q>, <&kp N1>;
+                  mods = <(MOD_RGUI)>;
+              };
+              mod_rgui_W_2: mod_rgui_W_2 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp W>, <&kp N2>;
+                  mods = <(MOD_RGUI)>;
+              };
+              mod_rgui_E_3: mod_rgui_E_3 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp E>, <&kp N3>;
+                  mods = <(MOD_RGUI)>;
+              };
+              mod_rgui_R_4: mod_rgui_R_4 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp R>, <&kp N4>;
+                  mods = <(MOD_RGUI)>;
+              };   
+              mod_rgui_T_5: mod_rgui_T_5 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp T>, <&kp N5>;
+                  mods = <(MOD_RGUI)>;
+              };  
+              mod_rgui_Y_6: mod_rgui_Y_6 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp Y>, <&kp N6>;
+                  mods = <(MOD_RGUI)>;
+              }; 
+              mod_rgui_U_7: mod_rgui_U_7 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp U>, <&kp N7>;
+                  mods = <(MOD_RGUI)>;
+              };    
+              mod_rgui_I_8: mod_rgui_I_8 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp I>, <&kp N8>;
+                  mods = <(MOD_RGUI)>;
+              };   
+              mod_rgui_O_9: mod_rgui_O_9 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp O>, <&kp N9>;
+                  mods = <(MOD_RGUI)>;
+              };   
+              mod_rgui_P_0: mod_rgui_P_0 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp P>, <&kp N0>;
+                  mods = <(MOD_RGUI)>;
+              };   
+              mod_rgui_M_1: mod_rgui_M_1 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp M>, <&kp N1>;
+                  mods = <(MOD_RGUI)>;
+              };
+              mod_rgui_COMMA_2: mod_rgui_COMMA_2 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp COMMA>, <&kp N2>;
+                  mods = <(MOD_RGUI)>;
+              };
+              mod_rgui_DOT_3: mod_rgui_DOT_3 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp DOT>, <&kp N3>;
+                  mods = <(MOD_RGUI)>;
+              };
+              mod_rgui_J_4: mod_rgui_J_4 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp J>, <&kp N4>;
+                  mods = <(MOD_RGUI)>;
+              };   
+              mod_rgui_K_5: mod_rgui_K_5 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp K>, <&kp N5>;
+                  mods = <(MOD_RGUI)>;
+              };  
+              mod_rgui_L_6: mod_rgui_L_6 {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp L>, <&kp N6>;
+                  mods = <(MOD_RGUI)>;
+              }; 
+              mod_lshft_larr_home: mod_lshft_larr_home {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp LEFT_ARROW>, <&kp HOME>;
+                  mods = <(MOD_LSFT)>;
+              };
+              mod_lshft_rarr_end: mod_lshft_rarr_end {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp RIGHT_ARROW>, <&kp END>;
+                  mods = <(MOD_LSFT)>;
+              }; 
+              mod_lgui_bksp_del: mod_lshft_bksp_del {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp BACKSPACE>, <&kp DEL>;
+                  mods = <(MOD_LGUI)>;
+              }; 
+              mod_lshft_uarr_pgup: mod_lshft_uarr_pgup {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp UP_ARROW>, <&kp PG_UP>;
+                  mods = <(MOD_LSFT)>;
+              };
+              mod_lshft_darr_pgdn: mod_lshft_darr_pgdn {
+                  compatible = "zmk,behavior-mod-morph";
+                  #binding-cells = <0>;
+                  bindings = <&kp DOWN_ARROW>, <&kp PG_DN>;
+                  mods = <(MOD_LSFT)>;
+              }; 
+           };
          keymap {
                  compatible = "zmk,keymap";
  
@@ -71,7 +490,7 @@
  //                    | GUI | LWR | SPC |   | ENT | RSE  | ALT |
                          bindings = <
                          // ╭────────────────────────┬────────────────────────┬────────────────────────┬────────────────────────┬────────────────────────╮    ╭────────────────────────┬────────────────────────┬────────────────────────┬───────────────────────┬────────────────────────╮
-                                &kp Q                   &kp W                   &kp E                    &kp R                    &kp T                         &kp Y                    &kp U                    &kp I                    &kp O                   &kp P   
+                                &kp Q                   &kp W                   &kp E                    &kp R                    &kp T                         &rgb_ug RGB_TOG          &bt BT_SEL 0             &bt BT_CLR               &bootloader             &kp P   
                          // ├────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┤    ├────────────────────────┼────────────────────────┼────────────────────────┼───────────────────────┼────────────────────────┤
                                 &kp A                   &kp S                   &kp D                    &kp F                    &kp G                         &kp H                    &kp J                    &kp K                    &kp L                   &kp BSPC
                          // ├────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┤    ├────────────────────────┼────────────────────────┼────────────────────────┼───────────────────────┼────────────────────────┤

@@ -102,4 +102,6 @@ add_subdirectory(src/display/)
 add_subdirectory_ifdef(CONFIG_SETTINGS src/settings/)
 add_subdirectory(src/mouse/)
 
+target_sources_ifdef(CONFIG_ZMK_RGB_INDICATORS app PRIVATE src/behaviors/behavior_rgb_indicators.c)
+target_sources_ifdef(CONFIG_ZMK_RGB_INDICATORS app PRIVATE src/rgb_indicators.c)
 zephyr_cc_option(-Wfatal-errors)

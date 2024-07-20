@@ -1,0 +1,35 @@
+# Copyright (c) 2020, The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+description: rgb indicators
+
+compatible: "zmk,rgb-indicators"
+
+properties:
+  bat-lhs:
+    type: array
+    required: false
+  bat-rhs:
+    type: array
+    required: false
+  capslock:
+    type: int
+    required: true
+  numlock:
+    type: int
+    required: false
+  scrolllock:
+    type: int
+    required: false
+  layer-state:
+    type: int
+    required: false
+  ble-state:
+    type: int
+    required: true
+  usb-state:
+    type: int
+    required: false
+  output-fallback:
+    type: int
+    required: false

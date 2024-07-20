@@ -23,7 +23,7 @@
          , <&gpio0 2 GPIO_ACTIVE_HIGH>
          ;
  };
- 
+ #ifdef CONFIG_ZMK_HAS_TRACKPOINT
  
  
 /*
@@ -499,9 +499,10 @@
     };
 
 #endif
-
+#endif 
 
 / {
+#ifdef CONFIG_ZMK_HAS_TRACKPOINT
     mouse_ps2: mouse_ps2 {
 		status = "disabled";
         compatible = "zmk,input-mouse-ps2";
@@ -526,5 +527,24 @@
 		// Some of the available settings depend on the keymap. So they
 		// are adjusted in...
 		// zmk-config/config/includes/mouse_tp.dtsi
+    };
+#endif 
+    rgb_indicators: rgb_indicators {
+        compatible  = "zmk,rgb-indicators";
+        capslock    = <0>;
+        ble-state   = <1>;
+        layer-state = <2>;
+    };
+    //ext_vcc涉及到外围供电，包括指示灯和炫彩灯带
+    EXT_POWER {
+        compatible = "zmk,ext-power-generic";
+        control-gpios = <&gpio1 9 GPIO_ACTIVE_HIGH>;
+        init-delay-ms = <50>;
+    };
+
+    chosen {
+        zmk,kscan = &kscan0;
+        zmk,matrix-transform = &default_transform;
+        zmk,rgb-indicators = &rgb_indicators;
     };
 };

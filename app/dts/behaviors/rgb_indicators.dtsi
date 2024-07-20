@@ -1,0 +1,15 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+/ {
+    behaviors {
+        // Behavior can be invoked on peripherals, so name must be <= 8 characters.
+        rgb_ind: rgb_ind {
+            compatible = "zmk,behavior-rgb-indicators";
+            #binding-cells = <2>;
+        };
+    };
+};
