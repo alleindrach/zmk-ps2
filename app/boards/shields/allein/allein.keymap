@@ -28,10 +28,10 @@
  * disable all the config options that rely on those forks and modules without having
  * to edit the entire keymap file manually every time.
  */
-#ifdef CONFIG_ZMK_HAS_TRACKPOINT
+//  #if IS_ENABLED(CONFIG_ZMK_HAS_TRACKPOINT)
 #define HAS_MOUSE_KEYS
 #define HAS_MOUSE_TP
-#endif
+// #endif
 #ifdef HAS_MOUSE_KEYS
   #include <dt-bindings/zmk/mouse.h>
   #include <behaviors/mouse_keys.dtsi>
@@ -123,13 +123,13 @@
                        = < &rgb_ug RGB_TOG>
                        ;
                };
-              //  indicator_toggle: indicator_toggle {
-              //      compatible = "zmk,behavior-macro";
-              //      #binding-cells = <0>;
-              //      bindings
-              //          = < &rgb_ind RGB_IND_TOGGLE>
-              //          ;
-              //  };
+               indicator_toggle: indicator_toggle {
+                   compatible = "zmk,behavior-macro";
+                   #binding-cells = <0>;
+                   bindings
+                       = < &rgb_ind RGB_IND_TOGGLE>
+                       ;
+               };
                mo_num: mo_num {
                   compatible = "zmk,behavior-macro";
                   #binding-cells = <0>;
@@ -301,13 +301,13 @@
                    flavor = "tap-preferred";
                    bindings = <&ug_toggle>, <&key_A>;
                };
-              //  ht_ind_tog: hold_tap_macro_ind_tog {
-              //      compatible = "zmk,behavior-hold-tap";
-              //      #binding-cells = <2>;
-              //      tapping-term-ms = <200>;
-              //      flavor = "tap-preferred";
-              //      bindings = <&indicator_toggle>, <&key_S>;
-              //  };
+               ht_ind_tog: hold_tap_macro_ind_tog {
+                   compatible = "zmk,behavior-hold-tap";
+                   #binding-cells = <2>;
+                   tapping-term-ms = <200>;
+                   flavor = "tap-preferred";
+                   bindings = <&indicator_toggle>, <&key_S>;
+               };
                ht_boot: ht_boot {
                   compatible = "zmk,behavior-hold-tap";
                   #binding-cells = <2>;
@@ -492,7 +492,7 @@
                          // ╭────────────────────────┬────────────────────────┬────────────────────────┬────────────────────────┬────────────────────────╮    ╭────────────────────────┬────────────────────────┬────────────────────────┬───────────────────────┬────────────────────────╮
                                 &kp Q                   &kp W                   &kp E                    &kp R                    &kp T                         &rgb_ug RGB_TOG          &bt BT_SEL 0             &bt BT_CLR               &bootloader             &kp P   
                          // ├────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┤    ├────────────────────────┼────────────────────────┼────────────────────────┼───────────────────────┼────────────────────────┤
-                                &kp A                   &kp S                   &kp D                    &kp F                    &kp G                         &kp H                    &kp J                    &kp K                    &kp L                   &kp BSPC
+                                &kp A                   &kp S                   &kp D                    &kp F                    &kp G                         &rgb_ind RGB_IND_TOGGLE  &kp J                    &kp K                    &kp L                   &kp BSPC
                          // ├────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┤    ├────────────────────────┼────────────────────────┼────────────────────────┼───────────────────────┼────────────────────────┤
                                 &kp Z                   &kp X                   &kp C                    &kp V                    &kp B                         &kp N                    &kp M                    &kp COMMA                &kp DOT                 &kp FSLH
                          // ├────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┼────────────────────────┤    ├────────────────────────┼────────────────────────┼────────────────────────┼───────────────────────┼────────────────────────┤

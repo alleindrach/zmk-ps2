@@ -23,9 +23,8 @@
          , <&gpio0 2 GPIO_ACTIVE_HIGH>
          ;
  };
- #ifdef CONFIG_ZMK_HAS_TRACKPOINT
- 
- 
+//  #if IS_ENABLED(CONFIG_ZMK_HAS_TRACKPOINT)
+//  x
 /*
  * PS/2 Mouse / Trackpoint - User Configuration
  *
@@ -58,7 +57,6 @@
 //
 // In all other cases you should try using the UART driver first.
 #define MOUSE_PS2_DRIVER_UART
-
 
 // Configure the SCL and SDA pins using the`&pro_micro` notation.
 //
@@ -117,7 +115,7 @@
 //
 // We don't define the SCL pin, because UART uses a baud rate instead of
 // a clock pin.
-#define MOUSE_PS2_PIN_SDA_PINCTRL <NRF_PSEL(UART_RX, 0, 20)>
+#define MOUSE_PS2_PIN_SDA_PINCTRL <NRF_PSEL(UART_RX, 0, 8)>
 
 // Configure UART BAUD Rate
 //
@@ -499,10 +497,10 @@
     };
 
 #endif
-#endif 
+// #endif 
 
 / {
-#ifdef CONFIG_ZMK_HAS_TRACKPOINT
+// #if IS_ENABLED(CONFIG_ZMK_HAS_TRACKPOINT)
     mouse_ps2: mouse_ps2 {
 		status = "disabled";
         compatible = "zmk,input-mouse-ps2";
@@ -516,6 +514,7 @@
 #ifdef MOUSE_PS2_PIN_RST_PRO_MICRO
         rst-gpios = MOUSE_PS2_PIN_RST_PRO_MICRO;
 #endif
+         
     };
 
     mouse_ps2_input_listener: mouse_ps2_input_listener {
@@ -528,7 +527,7 @@
 		// are adjusted in...
 		// zmk-config/config/includes/mouse_tp.dtsi
     };
-#endif 
+// #endif 
     rgb_indicators: rgb_indicators {
         compatible  = "zmk,rgb-indicators";
         capslock    = <0>;

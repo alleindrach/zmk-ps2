@@ -325,9 +325,9 @@ static int zmk_led_generate_status(void) {
     //     status_pixels[DT_PROP(RGB_INDICATORS, numlock)] = red;
     // if (led_flags & ZMK_LED_SCROLLLOCK_BIT)
     //     status_pixels[DT_PROP(RGB_INDICATORS, scrolllock)] = red;
-    LOG_WRN("capslock status_pixels[%d] R[%x],G[%x],B[%x]", DT_PROP(RGB_INDICATORS, capslock),
-            status_pixels[DT_PROP(RGB_INDICATORS, capslock)].r, status_pixels[DT_PROP(RGB_INDICATORS, capslock)].g,status_pixels[DT_PROP(RGB_INDICATORS, capslock)].b);
-    // LAYER STATUS
+    // LOG_WRN("capslock status_pixels[%d] R[%x],G[%x],B[%x]", DT_PROP(RGB_INDICATORS, capslock),
+    //         status_pixels[DT_PROP(RGB_INDICATORS, capslock)].r, status_pixels[DT_PROP(RGB_INDICATORS, capslock)].g,status_pixels[DT_PROP(RGB_INDICATORS, capslock)].b);
+    // // LAYER STATUS
     int layer_activated[3] = {0, 0, 0};
     for (uint8_t i = 0; i < 3; i++) {
         if (zmk_keymap_layer_active(i))
@@ -337,9 +337,9 @@ static int zmk_led_generate_status(void) {
     status_pixels[indicators_layer_state] =
         HEXRGB(layer_activated[0], layer_activated[1], layer_activated[2]);
 
-    LOG_WRN("layer  status_pixels[%d] R[%x],G[%x],B[%x]", indicators_layer_state,
-            status_pixels[indicators_layer_state].r, status_pixels[indicators_layer_state].g,
-            status_pixels[indicators_layer_state].b);
+    // LOG_WRN("layer  status_pixels[%d] R[%x],G[%x],B[%x]", indicators_layer_state,
+            // status_pixels[indicators_layer_state].r, status_pixels[indicators_layer_state].g,
+            // status_pixels[indicators_layer_state].b);
     struct zmk_endpoint_instance active_endpoint = zmk_endpoints_selected();
 
     // if (!zmk_endpoints_preferred_transport_is_active())
@@ -366,9 +366,9 @@ static int zmk_led_generate_status(void) {
     }
     status_pixels[indicators_ble_state] =
         HEXRGB(ble_profile_activated[0], ble_profile_activated[1], ble_profile_activated[2]);
-    LOG_WRN("Ble  status_pixels[%d] R[%x],G[%x],B[%x]", indicators_ble_state,
-             status_pixels[indicators_ble_state].r, status_pixels[indicators_ble_state].g,
-             status_pixels[indicators_ble_state].b);
+    // LOG_WRN("Ble  status_pixels[%d] R[%x],G[%x],B[%x]", indicators_ble_state,
+            //  status_pixels[indicators_ble_state].r, status_pixels[indicators_ble_state].g,
+            //  status_pixels[indicators_ble_state].b);
     // enum zmk_usb_conn_state usb_state = zmk_usb_get_conn_state();
     // if (usb_state == ZMK_USB_CONN_HID &&
     //     active_endpoint.transport == ZMK_TRANSPORT_USB) { // connected AND active

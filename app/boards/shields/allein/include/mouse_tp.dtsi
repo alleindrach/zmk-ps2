@@ -95,6 +95,8 @@
       // How long to wait, after the last mouse movement, before deactivating
       // the layer (Default: 250)
       layer-toggle-timeout-ms = <250>;
+
+      y-invert;
     };
 
 
@@ -175,6 +177,7 @@
 
     &mouse_ps2_input_listener {
       status = "okay";
+
     };
 
     #ifdef MOUSE_PS2_DRIVER_UART

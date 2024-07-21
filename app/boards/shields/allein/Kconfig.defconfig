@@ -105,4 +105,4 @@ config ZMK_RGB_INDICATORS_SPD
 endif
 menuconfig ZMK_HAS_TRACKPOINT
     bool "Has Thinkpad TrackPoint"
-    default n
+    default y
