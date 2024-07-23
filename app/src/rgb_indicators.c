@@ -340,7 +340,7 @@ static int zmk_led_generate_status(void) {
     // LOG_WRN("layer  status_pixels[%d] R[%x],G[%x],B[%x]", indicators_layer_state,
             // status_pixels[indicators_layer_state].r, status_pixels[indicators_layer_state].g,
             // status_pixels[indicators_layer_state].b);
-    struct zmk_endpoint_instance active_endpoint = zmk_endpoints_selected();
+    // struct zmk_endpoint_instance active_endpoint = zmk_endpoints_selected();
 
     // if (!zmk_endpoints_preferred_transport_is_active())
     //     status_pixels[DT_PROP(RGB_INDICATORS, output_fallback)] = red;
