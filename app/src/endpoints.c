@@ -31,7 +31,7 @@ LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static struct zmk_endpoint_instance current_instance = {};
 static enum zmk_transport preferred_transport =
-    ZMK_TRANSPORT_USB; /* Used if multiple endpoints are ready */
+    ZMK_TRANSPORT_BLE; /* Used if multiple endpoints are ready */
 
 static void update_current_endpoint(void);
 

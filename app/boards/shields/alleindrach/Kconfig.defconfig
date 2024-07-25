@@ -1,0 +1,106 @@
+
+# Central Side Configuration
+#
+# The side on which the PS/2 mouse is connected MUST be the central side.
+#
+# By default zmk configures the LEFT side as the central side. But most people
+# want to connect their pointing devices to the RIGHT side.
+#
+# So, you need to define that the central side is the one to which the
+# pointing device is connected to.
+if SHIELD_ALLEINDRACH
+
+config ZMK_KEYBOARD_NAME
+    default "alleindrach"
+
+
+endif
+# Options that should be enabled on both sides
+if SHIELD_ALLEIN_LEFT || SHIELD_ALLEIN_RIGHT
+
+config ZMK_SPLIT
+    default y
+
+if ZMK_DISPLAY
+
+config I2C
+    default y
+
+config SSD1306
+    default y
+
+endif # ZMK_DISPLAY
+
+if LVGL
+
+config LV_Z_VDB_SIZE
+    default 64
+
+config LV_DPI_DEF
+    default 148
+
+config LV_Z_BITS_PER_PIXEL
+    default 1
+
+choice LV_COLOR_DEPTH
+    default LV_COLOR_DEPTH_1
+endchoice
+
+endif # LVGL
+
+endif
+
+
+menuconfig ZMK_RGB_INDICATORS
+    bool "RGB Adressable LED Indicators"
+    select LED_STRIP
+    select ZMK_LOW_PRIORITY_WORK_QUEUE
+
+if ZMK_RGB_INDICATORS
+
+# This default value cuts down on tons of excess .conf files, if you're using GPIO, manually disable this
+config SPI
+    default y
+
+config ZMK_RGB_INDICATORS_EXT_POWER
+    bool "RGB underglow toggling also controls external power"
+    default y
+
+config ZMK_RGB_INDICATORS_BRT
+    int "RGB underglow minimum brightness in percent"
+    default 10
+
+
+config ZMK_RGB_INDICATORS_HUE
+    int "RGB underglow start hue value in degrees"
+    default 100
+
+config ZMK_RGB_INDICATORS_SAT
+    int "RGB underglow start saturations value in percent"
+    default 100
+
+
+config ZMK_RGB_INDICATORS_EFF
+    int "RGB underglow start effect int value related to the effect enum list"
+    default 0
+
+config ZMK_RGB_INDICATORS_ON_START
+    bool "RGB status indicators starts on by default"
+    default y
+
+config ZMK_RGB_INDICATORS_AUTO_OFF_IDLE
+    bool "Turn off RGB underglow when keyboard goes into idle state"
+
+config ZMK_RGB_INDICATORS_AUTO_OFF_USB
+    bool "Turn off RGB underglow when USB is disconnected"
+    depends on USB_DEVICE_STACK
+
+config ZMK_RGB_INDICATORS_SPD
+    int "RGB underglow start animation speed value"
+    default 3
+
+#ZMK_RGB_INDICATORS
+endif
+menuconfig ZMK_HAS_TRACKPOINT
+    bool "Has Thinkpad TrackPoint"
+    default y

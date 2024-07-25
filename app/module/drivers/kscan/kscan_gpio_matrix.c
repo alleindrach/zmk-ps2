@@ -270,7 +270,7 @@ static int kscan_matrix_read(const struct device *dev) {
             if (zmk_debounce_get_changed(state)) {
                 const bool pressed = zmk_debounce_is_pressed(state);
 
-                LOG_DBG("Sending event at %i,%i state %s", r, c, pressed ? "on" : "off");
+                LOG_WRN("Sending event at %i,%i state %s", r, c, pressed ? "on" : "off");
                 data->callback(dev, r, c, pressed);
             }
 
