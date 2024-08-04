@@ -11,7 +11,7 @@
 if SHIELD_ALLEINDRACH
 
 config ZMK_KEYBOARD_NAME
-    default "alleindrach"
+    default "alleindrach-tp"
 
 
 endif
