@@ -1,0 +1,12 @@
+file_format: "1"
+id: allein_compact
+name: allein_compact
+type: shield
+url: https://github.com/foostan/crkbd/
+requires: [pro_micro]
+exposes: [i2c_oled]
+features:
+  - keys
+  - display
+  - underglow
+
